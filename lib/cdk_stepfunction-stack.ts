@@ -3,6 +3,7 @@ import * as tasks from "@aws-cdk/aws-stepfunctions-tasks";
 import * as lambda from "@aws-cdk/aws-lambda";
 import * as ddb from "@aws-cdk/aws-dynamodb";
 import * as cdk from "@aws-cdk/core";
+import { Condition, Pass } from "@aws-cdk/aws-stepfunctions";
 
 //https://github.com/richardhboyd/aws-step-functions
 //https://raw.githubusercontent.com/richardhboyd/aws-step-functions/master/CDK/lib/sfn_cdk-stack.ts
@@ -78,7 +79,7 @@ export class CdkStepfunctionStack extends cdk.Stack {
         .next(waitTask)
         .next(reverseeIdTask)
         .next(stepChain);
-    
+
         const machine = new sfn.StateMachine(this, "StateMachine", {
           definition,
           timeout: cdk.Duration.minutes(5),
